@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Energy - {{ page_title }}</title>
+</head>
+<body>
+    <h1>Welcome to the Smart Energy Grid Failure Management System!</h1>
+    <p>This is your custom home page rendered from an HTML template.</p>
+
+    <h2>Recent Grid Failures</h2>
+    {% if grid_failures %} {# Check if there are any failures to display #}
+        <ul>
+            {% for failure in grid_failures %}
+                <li>
+                    <strong>Type:</strong> {{ failure.failure_type }} <br>
+                    <strong>Location:</strong> {{ failure.location }} <br>
+                    <strong>Time:</strong> {{ failure.timestamp }} <br>
+                    <strong>Severity:</strong> {{ failure.severity }} <br>
+                    <strong>Resolved:</strong> {{ failure.resolved|yesno:"Yes,No" }} {# Django template filter to show Yes/No #}
+                </li>
+                <br>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No grid failures reported yet. All systems nominal!</p>
+    {% endif %}
+</body>
+</html>
