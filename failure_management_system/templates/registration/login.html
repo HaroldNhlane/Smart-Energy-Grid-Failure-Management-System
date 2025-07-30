@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Smart Energy</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %} {# This is CRUCIAL for security in Django forms! #}
+        {{ form.as_p }} {# Renders form fields as paragraphs #}
+        <button type="submit">Log In</button>
+    </form>
+    <p>Don't have an account? Contact your administrator.</p>
+</body>
+</html>

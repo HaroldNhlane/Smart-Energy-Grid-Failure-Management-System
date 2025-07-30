@@ -16,9 +16,11 @@ Including another URLconf
 """
 # failure_management_system/failure_management_system/urls.py
 from django.contrib import admin
-from django.urls import path, include # Make sure 'include' is here!
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('smart-energy/', include('smart_energy.urls')), # This line connects your app's URLs
+    path('smart-energy/', include('smart_energy.urls')),
+    # Add Django's built-in authentication URLs
+    path('accounts/', include('django.contrib.auth.urls')), # <--- Add this line
 ]

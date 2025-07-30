@@ -9,8 +9,21 @@
     <h1>Welcome to the Smart Energy Grid Failure Management System!</h1>
     <p>This is your custom home page rendered from an HTML template.</p>
 
+    {% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }}! |
+            <form action="{% url 'logout' %}" method="post" style="display:inline;"> {# <--- Add this form #}
+                {% csrf_token %} {# <--- CRUCIAL for POST forms! #}
+                <button type="submit" style="background:none; border:none; padding:0; color:blue; text-decoration:underline; cursor:pointer;">
+                    Log Out
+                </button>
+            </form>
+        </p>
+    {% else %}
+        <p><a href="{% url 'login' %}">Log In</a></p>
+    {% endif %}
+
     <h2>Recent Grid Failures</h2>
-    {% if grid_failures %} {# Check if there are any failures to display #}
+    {% if grid_failures %}
         <ul>
             {% for failure in grid_failures %}
                 <li>
@@ -18,7 +31,7 @@
                     <strong>Location:</strong> {{ failure.location }} <br>
                     <strong>Time:</strong> {{ failure.timestamp }} <br>
                     <strong>Severity:</strong> {{ failure.severity }} <br>
-                    <strong>Resolved:</strong> {{ failure.resolved|yesno:"Yes,No" }} {# Django template filter to show Yes/No #}
+                    <strong>Resolved:</strong> {{ failure.resolved|yesno:"Yes,No" }}
                 </li>
                 <br>
             {% endfor %}
